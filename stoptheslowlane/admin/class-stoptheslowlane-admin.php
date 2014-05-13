@@ -14,7 +14,7 @@
  * administrative side of the WordPress site.
  *
  * If you're interested in introducing public-facing
- * functionality, then refer to `class-plugin-name.php`
+ * functionality, then refer to `class-stoptheslowlane.php`
  *
  * @TODO: Rename this class to a proper name for your plugin.
  *
@@ -70,8 +70,8 @@ class StopTheSlowLane_Admin {
 		$this->plugin_slug = $plugin->get_plugin_slug();
 
 		// Load admin style sheet and JavaScript.
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
+		//add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
+		//add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
 
 		// Add the options page and menu item.
 		add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
@@ -86,8 +86,8 @@ class StopTheSlowLane_Admin {
 		 * Read more about actions and filters:
 		 * http://codex.wordpress.org/Plugin_API#Hooks.2C_Actions_and_Filters
 		 */
-		add_action( '@TODO', array( $this, 'action_method_name' ) );
-		add_filter( '@TODO', array( $this, 'filter_method_name' ) );
+		//add_action( '@TODO', array( $this, 'action_method_name' ) );
+		//add_filter( '@TODO', array( $this, 'filter_method_name' ) );
 
 	}
 
@@ -187,8 +187,8 @@ class StopTheSlowLane_Admin {
 		 *   For reference: http://codex.wordpress.org/Roles_and_Capabilities
 		 */
 		$this->plugin_screen_hook_suffix = add_options_page(
-			__( 'Page Title', $this->plugin_slug ),
-			__( 'Menu Text', $this->plugin_slug ),
+			__( '#StopTheSlowLane Settings', $this->plugin_slug ),
+			__( '#StopTheSlowLane', $this->plugin_slug ),
 			'manage_options',
 			$this->plugin_slug,
 			array( $this, 'display_plugin_admin_page' )
@@ -202,6 +202,31 @@ class StopTheSlowLane_Admin {
 	 * @since    1.0.0
 	 */
 	public function display_plugin_admin_page() {
+		//must check that the user has the required capability 
+		if (!current_user_can('manage_options'))
+		{
+			wp_die( __('You do not have sufficient permissions to access this page.') );
+		}
+		
+		// variables for the field and option names 
+		$opt_name = 'slowlane_style';
+		$hidden_field_name = 'slowlane_submit_hidden';
+		$data_field_name = 'slowlane_style';
+		
+		// Read in existing option value from database
+		$opt_val = get_option( $opt_name );
+		
+		$show_update_message = false;
+		// See if the user has posted us some information
+		// If they did, this hidden field will be set to 'Y'
+		if( isset($_POST[ $hidden_field_name ]) && $_POST[ $hidden_field_name ] == 'Y' ) {
+				// Read their posted value
+				$opt_val = $_POST[ $data_field_name ];
+				// Save the posted value in the database
+				update_option( $opt_name, $opt_val );
+				$show_update_message = true;
+		}
+		
 		include_once( 'views/admin.php' );
 	}
 

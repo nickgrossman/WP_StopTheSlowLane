@@ -12,7 +12,7 @@
  * @copyright 2014 Your Name or Company Name
  *
  * @wordpress-plugin
- * Plugin Name:       @TODO
+ * Plugin Name:       #StopTheSlowLane
  * Plugin URI:        @TODO
  * Description:       @TODO
  * Version:           1.0.0

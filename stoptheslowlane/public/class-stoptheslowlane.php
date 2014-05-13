@@ -14,7 +14,7 @@
  * public-facing side of the WordPress site.
  *
  * If you're interested in introducing administrative or dashboard
- * functionality, then refer to `class-plugin-name-admin.php`
+ * functionality, then refer to `class-stoptheslowlane-admin.php`
  *
  * @TODO: Rename this class to a proper name for your plugin.
  *
@@ -33,7 +33,7 @@ class StopTheSlowLane {
 	const VERSION = '1.0.0';
 
 	/**
-	 * @TODO - Rename "plugin-name" to the name of your plugin
+	 * @TODO - Rename "stoptheslowlane" to the name of your plugin
 	 *
 	 * Unique identifier for your plugin.
 	 *
@@ -46,7 +46,7 @@ class StopTheSlowLane {
 	 *
 	 * @var      string
 	 */
-	protected $plugin_slug = 'plugin-name';
+	protected $plugin_slug = 'stoptheslowlane';
 
 	/**
 	 * Instance of this class.
@@ -72,14 +72,14 @@ class StopTheSlowLane {
 		add_action( 'wpmu_new_blog', array( $this, 'activate_new_site' ) );
 
 		// Load public-facing style sheet and JavaScript.
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		//add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
+		//add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 		/* Define custom functionality.
 		 * Refer To http://codex.wordpress.org/Plugin_API#Hooks.2C_Actions_and_Filters
 		 */
-		add_action( '@TODO', array( $this, 'action_method_name' ) );
-		add_filter( '@TODO', array( $this, 'filter_method_name' ) );
+		add_action( 'wp_head', array( $this, 'insert_head_tags' ) );
+		//add_filter( '@TODO', array( $this, 'filter_method_name' ) );
 
 	}
 
@@ -267,7 +267,7 @@ class StopTheSlowLane {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
-		wp_enqueue_style( $this->plugin_slug . '-plugin-styles', plugins_url( 'assets/css/public.css', __FILE__ ), array(), self::VERSION );
+		//wp_enqueue_style( $this->plugin_slug . '-plugin-styles', plugins_url( 'assets/css/public.css', __FILE__ ), array(), self::VERSION );
 	}
 
 	/**
@@ -276,7 +276,7 @@ class StopTheSlowLane {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
-		wp_enqueue_script( $this->plugin_slug . '-plugin-script', plugins_url( 'assets/js/public.js', __FILE__ ), array( 'jquery' ), self::VERSION );
+		//wp_enqueue_script( $this->plugin_slug . '-plugin-script', plugins_url( 'assets/js/slowlane.js', __FILE__ ), array( 'jquery' ), self::VERSION );
 	}
 
 	/**
@@ -288,8 +288,16 @@ class StopTheSlowLane {
 	 *
 	 * @since    1.0.0
 	 */
-	public function action_method_name() {
+	public function insert_head_tags() {
 		// @TODO: Define your action hook callback here
+		$style = get_option('slowlane_style', 'loading');
+		?>
+		<style id="_sl_hide" type="text/css">body { display: none; }</style>
+		<?php  if ($style == "blur") : ?>
+		<script type="text/javascript">var _sl_options = { animation: 'blur' }; // Alternate Comcast animation</script>
+		<?php endif; ?>
+		<script src="https://fightforthefuture.github.io/stoptheslowlane/widget/slowlane.js"></script>
+		<?php
 	}
 
 	/**
