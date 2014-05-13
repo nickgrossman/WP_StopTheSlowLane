@@ -9,8 +9,8 @@ Installation instructions
 -------------------------
 * [**Download the plugin ZIP file**][3] (and then unzip it somewhere)
 * Copy the "stoptheslowlane" folder into your wp-content/plugins folder
-  (**NOTE: the folder you need to copy is _inside_ the
-  WP_StopTheSlowLane-master folder**)
+  **(NOTE: the folder you need to copy is _inside_ the
+  WP_StopTheSlowLane-master folder)**
 * Go into your WordPress Admin and open the "Plugins" settings screen
 * Click "Activate" on the #StopTheSlowLane plugin
 * (optional) if you want to configure which loading animation you get, click
