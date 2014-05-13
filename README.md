@@ -7,14 +7,6 @@ StopTheSlowLane WordPress Plugin
 [**See the widget in action here!**][2]
 
 
-Introduction
-------------
-The FCC could soon let Internet providers charge websites to access a bogus
-"fast lane" and slow down every site that doesn't pay. Do you want a slower
-Internet? Neither do we. Show the world what the FCC's "slow lane" looks like
-by embedding the #StopTheSlowLane Widget on your site!
-
-
 Installation instructions
 -------------------------
 * [**Download the project ZIP file**][3] (and then unzip it somewhere)
